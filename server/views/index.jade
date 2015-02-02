@@ -1,7 +1,17 @@
 extends ../includes/layout
 
 block main-content
+	.navbar.navbar-inverse.navbar-fixed-top
+		.container
+			.navbar-header
+				a.navbar-brand(href="/") Multivision
+			.navbar-collapse.collapse
+				ul.nav.navbar-nav
+					li
+						a(href="/") Home
+				div(ng-include="'/partials/account/navbar-login'")
 	section.content
-		h1 Hello World
-			div(ng-view)
-		h2=mongoMessage
+		div(ng-view)
+
+	footer.container.text-center
+		p &copy; 2015 Multivision Corp International Ltd.
