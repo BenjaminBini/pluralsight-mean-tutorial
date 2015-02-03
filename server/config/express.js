@@ -24,7 +24,7 @@ module.exports = function(app, config) {
 	// Sessions
 	app.use(session({secret: 'multi vision unicorn'})); 
 
-	// Passport middleware
+	// Passport middlewares
 	app.use(passport.initialize());
 	app.use(passport.session());
 	

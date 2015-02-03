@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
+var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
@@ -12,17 +13,10 @@ require('./server/config/express')(app, config);
 
 require('./server/config/mongoose')(config);
 
-passport.use(new LocalStrategy(
-	function (userName, password, done) {
-		User.findOne({userName:userName}).exec(function (err, user) {
-			if (user) {
-				return done(null, user);
-			} else {
-				return done(null, false);
-			}
-		});
-	}
-));
+var User = mongoose.model('User');
+
+
+
 
 
 passport.serializeUser(function (user, done) {
@@ -32,14 +26,26 @@ passport.serializeUser(function (user, done) {
 });
 
 passport.deserializeUser(function (id, done) {
-	User.findOne({_id:id}).exec(function () {
+	User.findOne({_id:id}).exec(function (err, user) {
 		if (user) {
 			return done(null, user);
 		} else {
 			return done(null, false);
 		} 
 	});
-})
+});
+
+passport.use(new LocalStrategy(
+	function (username, password, done) {
+		User.findOne({username:username}).exec(function (err, user) {
+			if (user) {
+				return done(null, user);
+			} else {
+				return done(null, false);
+			}
+		});
+	}
+));
 
 require('./server/config/routes')(app);
 
