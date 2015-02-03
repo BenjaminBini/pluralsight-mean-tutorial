@@ -7,7 +7,7 @@ module.exports = {
         rootPath: rootPath,
         port: 3030
     },
-    prodution: {
+    production: {
         db: 'mongodb://localhost/multivision',
         rootPath: rootPath,
         port: 3030
