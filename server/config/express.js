@@ -1,7 +1,10 @@
 var express = require('express');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
 var stylus = require('stylus');
+var passport = require('passport');
 
 module.exports = function(app, config) {
 	// Set stylus middleware
@@ -14,8 +17,17 @@ module.exports = function(app, config) {
 		})
 	);
 
-	// Body parser
+	// Parsers
+	app.use(cookieParser());
 	app.use(bodyParser());
+
+	// Sessions
+	app.use(session({secret: 'multi vision unicorn'})); 
+
+	// Passport middleware
+	app.use(passport.initialize());
+	app.use(passport.session());
+	
 	// Set static middleware for static assets
 	app.use(express.static(config.rootPath + '/public'));
 
