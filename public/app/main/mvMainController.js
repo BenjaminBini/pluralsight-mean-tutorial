@@ -10,6 +10,6 @@ angular.module('app').controller('mvMainController', function($scope) {
 		{ name: 'C', featured: false, published: new Date('8/1/2015') },
 		{ name: 'Build a dynamic website with PHP', featured: false, published: new Date('9/1/2015') },
 		{ name: 'Learn node.js', featured: false, published: new Date('10/1/2015') },
-		{ name: 'The Javascript bible', featured: false, published: new Date('11/1/2015') },
+		{ name: 'The Javascript bible', featured: false, published: new Date('11/1/2015') }
 	];
 });
