@@ -5,6 +5,10 @@ angular.module('app').factory('mvNotifier', function(mvToastr) {
 		notify: function (msg) {
 			mvToastr.success(msg);
 			console.log(msg);
+		},
+		warn: function (msg) {
+			mvToastr.warning(msg);
+			console.log(msg);
 		}
-	}
+	};
 });
