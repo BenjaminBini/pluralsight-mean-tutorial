@@ -9,6 +9,10 @@ angular.module('app').factory('mvNotifier', function(mvToastr) {
 		warn: function (msg) {
 			mvToastr.warning(msg);
 			console.log(msg);
+		},
+		error: function (msg) {
+			mvToastr.error(msg);
+			console.log(msg);
 		}
 	};
 });
