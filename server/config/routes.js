@@ -1,11 +1,16 @@
+/**
+ * Routes configuration
+ */
+
 var auth = require('./auth');
 var mongoose = require('mongoose');
 var users = require('../controllers/users');
 
 module.exports = function(app) {
 
-	app.get('/api/users', auth.requiresRole('admin'), users.getUser);
+	app.get('/api/users', auth.requiresRole('admin'), users.getUsers);
 	app.post('/api/users', users.createUser);
+	app.put('/api/users', users.updateUser);
 
 	// Render partials
 	app.get('/partials/*', function (req, res) {

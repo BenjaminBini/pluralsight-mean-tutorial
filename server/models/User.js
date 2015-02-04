@@ -1,6 +1,9 @@
 var mongoose = require('mongoose');
 var encrypt = require('../utils/encryption');
 
+/**
+ * User schema
+ */
 var userSchema = mongoose.Schema({
 	firstName: {
 		type:String, 
@@ -24,13 +27,33 @@ var userSchema = mongoose.Schema({
 	roles: [String]
 });
 
+/**
+ * User schema methods
+ */
 userSchema.methods = {
+	/**
+	 * Check if the password is correct
+	 * @param  passwordToMatch Password to check
+	 * @return                 True if the password is correct
+	 */
 	authenticate: function (passwordToMatch) {
 		return encrypt.hashPassword(this.salt, passwordToMatch) === this.hashedPassword;
+	},
+	/**
+	 * Check if the user has the given role
+	 * @param  {[type]}  role Role to check
+	 * @return {Boolean}      True if the user has the role
+	 */
+	hasRole: function (role) {
+		return this.roles.indexOf(role) > -1;
 	}
 }
+
 var User = mongoose.model('User', userSchema);
 
+/**
+ * Create default users in the db
+ */
 exports.createDefaultUsers = function() {
 	User.find({}).exec(function (err, collection) {
 		if (collection.length === 0) {

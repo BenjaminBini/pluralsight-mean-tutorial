@@ -1,3 +1,7 @@
+/**
+ * Mongoose configuration
+ */
+
 var mongoose = require('mongoose');
 var userModel = require('../models/User');
 
@@ -10,5 +14,6 @@ module.exports = function(config) {
 		console.log('db opened');
 	});
 
+	// Create default users in the db
 	userModel.createDefaultUsers();
 }
