@@ -47,7 +47,7 @@ userSchema.methods = {
 	hasRole: function (role) {
 		return this.roles.indexOf(role) > -1;
 	}
-}
+};
 
 var User = mongoose.model('User', userSchema);
 
@@ -70,4 +70,4 @@ exports.createDefaultUsers = function() {
 			User.create({firstName: 'Léonie', lastName: 'Gros', username: 'leo', salt: salt, hashedPassword: hash});
 		}
 	});
-}
+};

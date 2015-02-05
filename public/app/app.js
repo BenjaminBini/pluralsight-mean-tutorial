@@ -1,4 +1,4 @@
-angular.module('app', ['ngResource', 'ngRoute']);
+angular.module('app', ['ngResource', 'ngRoute', 'ui.select']);
 
 angular.module('app').config(function ($routeProvider, $locationProvider) {
 	
@@ -34,7 +34,11 @@ angular.module('app').config(function ($routeProvider, $locationProvider) {
 			templateUrl: '/partials/account/profile',
 			controller: 'mvProfileController',
 			resolve: routeRolesCheck.user
-		});;
+		})
+		.when('/courses', {
+			templateUrl: '/partials/courses/course-list',
+			controller: 'mvCourseListController',
+		});
 });
 
 angular.module('app').run(function ($rootScope, $location) {

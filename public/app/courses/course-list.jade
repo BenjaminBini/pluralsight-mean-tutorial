@@ -1,0 +1,18 @@
+.container
+	form.form-inline.courses-filter
+		.form-group.col-md-3.col-md-offset-6
+			input.form-control(ng-model="searchText", placeHolder="Filter")
+		.form-group.col-md-3
+			ui-select.select.form-control.select-primary.select2(ng-model="sortOrder.selected", theme="select2")
+				ui-select-match(placeholder="Order") {{$select.selected.text}}
+				ui-select-choices(repeat="item.value as item in sortOptions")
+					div {{item.text}}
+	table.table.table-hover.table-striped.table-condensed
+		thead
+			tr
+				th Title
+				th Publish Date
+		tbody
+			tr(ng-repeat="course in courses | filter: searchText | orderBy: sortOrder.selected")
+				td {{course.name}}
+				td {{course.published | date }}

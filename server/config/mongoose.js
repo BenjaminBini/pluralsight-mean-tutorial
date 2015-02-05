@@ -4,6 +4,7 @@
 
 var mongoose = require('mongoose');
 var userModel = require('../models/User');
+var courseModel = require('../models/Course');
 
 module.exports = function(config) {
 	// Mongodb connection
@@ -14,6 +15,7 @@ module.exports = function(config) {
 		console.log('db opened');
 	});
 
-	// Create default users in the db
+	// Create default data in the db
 	userModel.createDefaultUsers();
+	courseModel.createDefaultCourses();
 }

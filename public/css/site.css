@@ -3,6 +3,7 @@ body {
 }
 footer {
   padding-left: 0 15px;
+  background: none;
 }
 footer p {
   border-top: 1px solid #d7e0e2;
@@ -15,4 +16,19 @@ footer p {
 }
 .toast-top-right {
   top: 70px;
+}
+.sign-up {
+  margin-top: -8px;
+}
+.courses-filter {
+  margin: 10px 0;
+}
+.courses-filter .form-group {
+  float: none;
+}
+.courses-filter .form-control {
+  width: 100%;
+}
+.courses-filter .select {
+  cursor: pointer;
 }
