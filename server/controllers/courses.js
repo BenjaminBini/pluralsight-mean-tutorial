@@ -17,3 +17,10 @@ exports.getCourses = function(req, res) {
 		return collection;
 	});
 };
+
+
+exports.getCourseById = function (req, res) {
+	Course.findOne({_id: req.params.id}).exec(function (err, course) {
+		res.send(course);
+	});
+}

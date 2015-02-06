@@ -38,7 +38,11 @@ angular.module('app').config(function ($routeProvider, $locationProvider) {
 		.when('/courses', {
 			templateUrl: '/partials/courses/course-list',
 			controller: 'mvCourseListController',
-		});
+		})
+		.when('/courses/:id', {
+			templateUrl: '/partials/courses/course-detail',
+			controller: 'mvCourseDetailController',
+		});;
 });
 
 angular.module('app').run(function ($rootScope, $location) {
@@ -47,4 +51,4 @@ angular.module('app').run(function ($rootScope, $location) {
 			$location.path('/');
 		}
 	});
-})
+});
