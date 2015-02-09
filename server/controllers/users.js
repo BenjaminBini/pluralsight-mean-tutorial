@@ -19,6 +19,19 @@ exports.getUsers = function(req, res) {
 };
 
 /**
+ * Return the user with the given id
+ * @param  {[type]} req [description]
+ * @param  {[type]} res [description]
+ * @return {[type]}     [description]
+ */
+exports.getUserById = function (req, res) {
+	console.log("TESSST");
+	User.findOne({_id: req.params.id}).exec(function (err, user) {
+		res.send(user);
+	});
+};
+
+/**
  * Create a new user
  * @param  {[type]}   req  Request
  * @param  {[type]}   res  Response
@@ -73,28 +86,32 @@ exports.updateUser = function(req, res) {
 		return res.end();
 	}
 
-	// TODO : Run only if it is the current user (not the admin)
-	// Change the infos of the current user
-	req.user.firstName = userUpdates.firstName;
-	req.user.lastName = userUpdates.lastName;
-	req.user.username = userUpdates.username;
-	// If needed, generate new hashed password
-	if (userUpdates.password && userUpdates.password.length > 0) {
-		req.user.salt = encrypt.createSalt();
-		req.user.hashedPassword = encrypt.hashPassword(req.user.salt, userUpdates.password);
-	}
-
-	// Save the user
-	req.user.save(function(err) {
-		if (err) {
-			// If an error occure, return error 400 with the error
-			res.status(400);
-			return res.send({
-				reason: err.toString()
-			});
+	// Get the user we have to modify
+	User.findOne({_id: userUpdates._id}).exec(function(err, user) {
+		user.firstName = userUpdates.firstName;
+		user.lastName = userUpdates.lastName;
+		user.username = userUpdates.username;
+		// If needed, generate new hashed password
+		if (userUpdates.password && userUpdates.password.length > 0) {
+			user.salt = encrypt.createSalt();
+			user.hashedPassword = encrypt.hashPassword(user.salt, userUpdates.password);
 		}
-		// Send and return the user
-		res.send(req.user);
-		return req.user;
+		// If the modified user is the logged in user, let's reset it
+		if (req.user._id == userUpdates._id) {
+			req.user = user;
+		}
+		// Save the user
+		user.save(function(err) {
+			if (err) {
+				// If an error occure, return error 400 with the error
+				res.status(400);
+				return res.send({
+					reason: err.toString()
+				});
+			}
+			// Send and return the user
+			res.send(user);
+			return user;
+		});
 	});
 };

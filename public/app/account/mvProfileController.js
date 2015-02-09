@@ -17,6 +17,6 @@ angular.module('app').controller('mvProfileController', function($scope, mvAuth,
 		}, function (reason) {
 			mvNotifier.error(reason);
 		});
-	}
+	};
 
 });
