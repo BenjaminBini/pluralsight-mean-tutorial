@@ -1,3 +1,8 @@
-angular.module('app').controller('mvCourseDetailController', function ($scope, mvCourse, $routeParams) {
-	$scope.course = mvCourse.get({_id: $routeParams.id});
+angular.module('app').controller('mvCourseDetailController', function ($scope, mvCachedCourses, $routeParams) {
+	mvCachedCourses.query().$promise.then(function(courseList) {
+		courseList.some(function (course) {
+			$scope.course = course;
+			return true;
+		});
+	});
 });
